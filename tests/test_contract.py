@@ -29,6 +29,23 @@ def test_component_instantiation():
     assert comp.state.status == ComponentStatus.STOPPED
 
 
+def test_get_state_payload_returns_dict():
+    ctx = _fake_context()
+    comp = ExampleComponent(ctx)
+    state = comp.get_state_payload()
+    assert isinstance(state, dict)
+    assert "value" in state
+
+
+def test_capabilities():
+    ctx = _fake_context()
+    comp = ExampleComponent(ctx)
+    caps = comp.capabilities()
+    assert isinstance(caps, list)
+    assert "reset" in caps
+    assert "ping" in caps
+
+
 def test_start_stop_state_transitions():
     ctx = _fake_context()
     comp = ExampleComponent(ctx)
