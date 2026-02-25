@@ -34,6 +34,7 @@ class ExampleComponent(Component):
     def __init__(self, context: ComponentContext) -> None:
         super().__init__(context)
         self._log = context.logger()
+        self._logs_enabled = False # Default to disabled for now
         # TODO: add your own state, e.g. self._brightness = 0.0
 
     @property
@@ -66,8 +67,7 @@ class ExampleComponent(Component):
         self.publish_metadata()
         self.publish_status()
         self.publish_state()
-        # Minimal cfg: logs_enabled only. Add telemetry.metrics if you stream telemetry.
-        self.set_telemetry_config({"metrics": {}})
+        self.set_telemetry_config({})
         self.publish_cfg()
 
     def on_cmd_reset(self, payload_str: str) -> None:
